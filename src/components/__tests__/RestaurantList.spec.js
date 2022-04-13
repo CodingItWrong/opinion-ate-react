@@ -19,24 +19,26 @@ describe('RestaurantList', () => {
     render(<RestaurantList {...props} />);
   };
 
-  it('displays the loading indicator while loading', () => {
-    renderWithProps({loading: true});
-    expect(screen.queryByTestId('loading-indicator')).not.toBeNull();
-  });
-
-  it('does not display the loading indicator while not loading', () => {
-    renderWithProps({loading: false});
-    expect(screen.queryByTestId('loading-indicator')).toBeNull();
-  });
-
   it('loads restaurants on first render', () => {
     renderWithProps();
     expect(loadRestaurants).toHaveBeenCalled();
   });
 
-  it('displays the restaurants', () => {
-    renderWithProps();
-    expect(screen.queryByText('Sushi Place')).not.toBeNull();
-    expect(screen.queryByText('Pizza Place')).not.toBeNull();
+  it('displays the loading indicator while loading', () => {
+    renderWithProps({loading: true});
+    expect(screen.queryByTestId('loading-indicator')).not.toBeNull();
+  });
+
+  describe('when loading succeeds', () => {
+    it('does not display the loading indicator while not loading', () => {
+      renderWithProps({loading: false});
+      expect(screen.queryByTestId('loading-indicator')).toBeNull();
+    });
+
+    it('displays the restaurants', () => {
+      renderWithProps();
+      expect(screen.queryByText('Sushi Place')).not.toBeNull();
+      expect(screen.queryByText('Pizza Place')).not.toBeNull();
+    });
   });
 });
