@@ -1,5 +1,5 @@
 import {Provider} from 'react-redux';
-import {createMuiTheme} from '@material-ui/core/styles';
+import {createTheme} from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import {ThemeProvider} from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,7 +10,7 @@ import Container from '@material-ui/core/Container';
 import store from './store';
 import RestaurantScreen from './components/RestaurantScreen';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: green,
   },
