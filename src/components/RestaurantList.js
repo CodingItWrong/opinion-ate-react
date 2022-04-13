@@ -4,6 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Alert from '@material-ui/lab/Alert';
 import {loadRestaurants} from '../store/restaurants/actions';
 
 export const RestaurantList = ({loadRestaurants, restaurants, loading}) => {
@@ -14,6 +15,7 @@ export const RestaurantList = ({loadRestaurants, restaurants, loading}) => {
   return (
     <>
       {loading && <CircularProgress data-testid="loading-indicator" />}
+      <Alert severity="error">Restaurants could not be loaded.</Alert>
       <List>
         {restaurants.map(restaurant => (
           <ListItem key={restaurant.id}>

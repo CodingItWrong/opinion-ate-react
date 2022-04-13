@@ -44,4 +44,16 @@ describe('RestaurantList', () => {
       expect(screen.queryByText('Pizza Place')).not.toBeNull();
     });
   });
+
+  describe('when loading fails', () => {
+    beforeEach(() => {
+      renderWithProps({loadError: true});
+    });
+
+    it('displays the error message', () => {
+      expect(
+        screen.queryByText('Restaurants could not be loaded.'),
+      ).not.toBeNull();
+    });
+  });
 });
