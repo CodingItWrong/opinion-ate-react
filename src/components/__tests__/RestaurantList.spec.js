@@ -19,6 +19,11 @@ describe('RestaurantList', () => {
     render(<RestaurantList {...props} />);
   };
 
+  it('displays the loading indicator while loading', () => {
+    renderWithProps({loading: true});
+    expect(screen.queryByTestId('loading-indicator')).not.toBeNull();
+  });
+
   it('loads restaurants on first render', () => {
     renderWithProps();
     expect(loadRestaurants).toHaveBeenCalled();
