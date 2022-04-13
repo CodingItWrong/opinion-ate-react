@@ -19,15 +19,13 @@ describe('RestaurantList', () => {
     );
   };
 
-  beforeEach(() => {
-    renderWithProps();
-  });
-
   it('loads restaurants on first render', () => {
+    renderWithProps();
     expect(loadRestaurants).toHaveBeenCalled();
   });
 
   it('displays the restaurants', () => {
+    renderWithProps();
     expect(screen.queryByText('Sushi Place')).not.toBeNull();
     expect(screen.queryByText('Pizza Place')).not.toBeNull();
   });
