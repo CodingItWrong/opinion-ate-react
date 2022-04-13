@@ -2,9 +2,14 @@ import {render, screen} from '@testing-library/react';
 import {RestaurantList} from '../RestaurantList';
 
 describe('RestaurantList', () => {
-  it('loads restaurants on first render', () => {
-    const loadRestaurants = jest.fn().mockName('loadRestaurants');
-    const restaurants = [];
+  const restaurants = [
+    {id: 1, name: 'Sushi Place'},
+    {id: 2, name: 'Pizza Place'},
+  ];
+  let loadRestaurants;
+
+  beforeEach(() => {
+    loadRestaurants = jest.fn().mockName('loadRestaurants');
 
     render(
       <RestaurantList
@@ -12,19 +17,13 @@ describe('RestaurantList', () => {
         restaurants={restaurants}
       />,
     );
+  });
 
+  it('loads restaurants on first render', () => {
     expect(loadRestaurants).toHaveBeenCalled();
   });
 
   it('displays the restaurants', () => {
-    const noop = () => {};
-    const restaurants = [
-      {id: 1, name: 'Sushi Place'},
-      {id: 2, name: 'Pizza Place'},
-    ];
-
-    render(<RestaurantList loadRestaurants={noop} restaurants={restaurants} />);
-
     expect(screen.queryByText('Sushi Place')).not.toBeNull();
     expect(screen.queryByText('Pizza Place')).not.toBeNull();
   });
