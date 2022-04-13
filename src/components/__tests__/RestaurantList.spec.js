@@ -31,13 +31,15 @@ describe('RestaurantList', () => {
   });
 
   describe('when loading succeeds', () => {
-    it('does not display the loading indicator while not loading', () => {
+    beforeEach(() => {
       renderWithProps();
+    });
+
+    it('does not display the loading indicator while not loading', () => {
       expect(screen.queryByTestId('loading-indicator')).toBeNull();
     });
 
     it('displays the restaurants', () => {
-      renderWithProps();
       expect(screen.queryByText('Sushi Place')).not.toBeNull();
       expect(screen.queryByText('Pizza Place')).not.toBeNull();
     });
