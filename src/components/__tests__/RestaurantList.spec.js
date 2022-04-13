@@ -24,6 +24,11 @@ describe('RestaurantList', () => {
     expect(screen.queryByTestId('loading-indicator')).not.toBeNull();
   });
 
+  it('does not display the loading indicator while not loading', () => {
+    renderWithProps({loading: false});
+    expect(screen.queryByTestId('loading-indicator')).toBeNull();
+  });
+
   it('loads restaurants on first render', () => {
     renderWithProps();
     expect(loadRestaurants).toHaveBeenCalled();
