@@ -31,6 +31,8 @@ describe('restaurants', () => {
         {id: 2, name: 'Pizza Place'},
       ];
 
+      let store;
+
       it('stores the restaurants', async () => {
         const api = {
           loadRestaurants: () => Promise.resolve(records),
@@ -40,7 +42,7 @@ describe('restaurants', () => {
           records: [],
         };
 
-        const store = createStore(
+        store = createStore(
           restaurantsReducer,
           initialState,
           applyMiddleware(thunk.withExtraArgument(api)),
