@@ -33,7 +33,7 @@ describe('restaurants', () => {
 
       let store;
 
-      it('stores the restaurants', async () => {
+      beforeEach(async () => {
         const api = {
           loadRestaurants: () => Promise.resolve(records),
         };
@@ -49,7 +49,9 @@ describe('restaurants', () => {
         );
 
         await store.dispatch(loadRestaurants());
+      });
 
+      it('stores the restaurants', async () => {
         expect(store.getState().records).toEqual(records);
       });
     });
