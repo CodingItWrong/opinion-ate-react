@@ -1,5 +1,6 @@
-import {render, screen} from '@testing-library/react';
+import {act, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import flushPromises from 'flush-promises';
 import {NewRestaurantForm} from '../NewRestaurantForm';
 
 describe('NewRestaurantForm', () => {
@@ -20,6 +21,8 @@ describe('NewRestaurantForm', () => {
         restaurantName,
       );
       userEvent.click(screen.getByTestId('new-restaurant-submit-button'));
+
+      return act(flushPromises);
     });
 
     it('calls createRestaurant with the name', () => {
