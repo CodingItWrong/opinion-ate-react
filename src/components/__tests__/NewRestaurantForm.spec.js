@@ -14,6 +14,7 @@ describe('NewRestaurantForm', () => {
 
   describe('when filled in', () => {
     beforeEach(async () => {
+      createRestaurant.mockResolvedValue();
       await userEvent.type(
         screen.getByPlaceholderText('Add Restaurant'),
         restaurantName,
@@ -23,6 +24,10 @@ describe('NewRestaurantForm', () => {
 
     it('calls createRestaurant with the name', () => {
       expect(createRestaurant).toHaveBeenCalledWith(restaurantName);
+    });
+
+    it('clears the name', () => {
+      expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual('');
     });
   });
 });
