@@ -16,7 +16,7 @@ export const loadRestaurants = () => (dispatch, getState, api) => {
 };
 
 export const createRestaurant = name => (dispatch, getState, api) => {
-  api.createRestaurant(name).then(record => {
+  return api.createRestaurant(name).then(record => {
     dispatch(addRestaurant(record));
   });
 };
