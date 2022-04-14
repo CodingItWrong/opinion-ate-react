@@ -27,6 +27,8 @@ const loading = (state = false, action) => {
 
 const loadError = (state = false, action) => {
   switch (action.type) {
+    case START_LOADING:
+      return false;
     case RECORD_LOADING_ERROR:
       return true;
     default:
