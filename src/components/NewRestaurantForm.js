@@ -7,9 +7,11 @@ import {createRestaurant} from '../store/restaurants/actions';
 
 export const NewRestaurantForm = ({createRestaurant}) => {
   const [name, setName] = useState('');
+  const [validationError, setValidationError] = useState(false);
 
   const handleSubmit = e => {
     e.preventDefault();
+    setValidationError(true);
     createRestaurant(name).then(() => {
       setName('');
     });
@@ -17,7 +19,7 @@ export const NewRestaurantForm = ({createRestaurant}) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Alert severity="error">Name is required</Alert>
+      {validationError && <Alert severity="error">Name is required</Alert>}
       <TextField
         value={name}
         onChange={e => setName(e.target.value)}

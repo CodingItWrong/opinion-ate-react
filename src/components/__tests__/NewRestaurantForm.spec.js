@@ -14,6 +14,12 @@ describe('NewRestaurantForm', () => {
     render(<NewRestaurantForm createRestaurant={createRestaurant} />);
   });
 
+  describe('initially', () => {
+    it('does not display a validation error', () => {
+      expect(screen.queryByText(requiredError)).toBeNull();
+    });
+  });
+
   describe('when filled in', () => {
     beforeEach(async () => {
       createRestaurant.mockResolvedValue();
