@@ -110,4 +110,24 @@ describe('NewRestaurantForm', () => {
       expect(screen.queryByText(serverError)).not.toBeNull();
     });
   });
+
+  describe('when retrying after a server error', () => {
+    beforeEach(async () => {
+      createRestaurant.mockRejectedValueOnce().mockResolvedValueOnce();
+
+      await userEvent.type(
+        screen.getByPlaceholderText('Add Restaurant'),
+        restaurantName,
+      );
+      userEvent.click(screen.getByTestId('new-restaurant-submit-button'));
+      await act(flushPromises);
+
+      userEvent.click(screen.getByTestId('new-restaurant-submit-button'));
+      return act(flushPromises);
+    });
+
+    it('clears the server error', () => {
+      expect(screen.queryByText(serverError)).toBeNull();
+    });
+  });
 });
