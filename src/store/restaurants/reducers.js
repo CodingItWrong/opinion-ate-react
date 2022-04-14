@@ -21,7 +21,10 @@ const loading = (state = false, action) => {
   }
 };
 
+const loadError = () => true;
+
 export default combineReducers({
   records,
   loading,
+  loadError,
 });
