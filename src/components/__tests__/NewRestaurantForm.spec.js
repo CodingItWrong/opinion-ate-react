@@ -57,6 +57,10 @@ describe('NewRestaurantForm', () => {
     it('displays a validation error', () => {
       expect(screen.queryByText(requiredError)).not.toBeNull();
     });
+
+    it('does not call createRestaurant', () => {
+      expect(createRestaurant).not.toHaveBeenCalled();
+    });
   });
 
   describe('when correcting a validation error', () => {
