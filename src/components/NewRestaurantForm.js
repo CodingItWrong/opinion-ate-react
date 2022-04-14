@@ -1,15 +1,24 @@
+import {useState} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 export const NewRestaurantForm = ({createRestaurant}) => {
+  const [name, setName] = useState('');
+
   const handleSubmit = e => {
     e.preventDefault();
-    createRestaurant();
+    createRestaurant(name);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextField placeholder="Add Restaurant" fullWidth variant="filled" />
+      <TextField
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="Add Restaurant"
+        fullWidth
+        variant="filled"
+      />
       <Button
         type="submit"
         variant="contained"
