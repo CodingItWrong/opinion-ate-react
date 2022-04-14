@@ -58,4 +58,25 @@ describe('NewRestaurantForm', () => {
       expect(screen.queryByText(requiredError)).not.toBeNull();
     });
   });
+
+  describe('when correcting a validation error', () => {
+    beforeEach(async () => {
+      createRestaurant.mockResolvedValue();
+
+      userEvent.click(screen.getByTestId('new-restaurant-submit-button'));
+      await act(flushPromises);
+
+      await userEvent.type(
+        screen.getByPlaceholderText('Add Restaurant'),
+        restaurantName,
+      );
+      userEvent.click(screen.getByTestId('new-restaurant-submit-button'));
+
+      return act(flushPromises);
+    });
+
+    it('clears the validation error', () => {
+      expect(screen.queryByText(requiredError)).toBeNull();
+    });
+  });
 });

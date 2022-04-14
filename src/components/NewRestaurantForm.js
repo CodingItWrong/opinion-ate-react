@@ -14,6 +14,8 @@ export const NewRestaurantForm = ({createRestaurant}) => {
 
     if (!name) {
       setValidationError(true);
+    } else {
+      setValidationError(false);
     }
 
     createRestaurant(name).then(() => {
