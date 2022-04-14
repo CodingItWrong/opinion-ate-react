@@ -109,6 +109,12 @@ describe('NewRestaurantForm', () => {
     it('displays a server error', () => {
       expect(screen.queryByText(serverError)).not.toBeNull();
     });
+
+    it('does not clear the name', () => {
+      expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(
+        restaurantName,
+      );
+    });
   });
 
   describe('when retrying after a server error', () => {
