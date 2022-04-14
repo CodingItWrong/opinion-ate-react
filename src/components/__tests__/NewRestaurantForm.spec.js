@@ -5,6 +5,7 @@ import {NewRestaurantForm} from '../NewRestaurantForm';
 
 describe('NewRestaurantForm', () => {
   const restaurantName = 'Sushi Place';
+  const requiredError = 'Name is required';
 
   let createRestaurant;
 
@@ -44,7 +45,7 @@ describe('NewRestaurantForm', () => {
     });
 
     it('displays a validation error', () => {
-      expect(screen.queryByText('Name is required')).not.toBeNull();
+      expect(screen.queryByText(requiredError)).not.toBeNull();
     });
   });
 });
