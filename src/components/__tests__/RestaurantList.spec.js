@@ -39,6 +39,10 @@ describe('RestaurantList', () => {
       expect(screen.queryByTestId('loading-indicator')).toBeNull();
     });
 
+    it('does not display the error message', () => {
+      expect(screen.queryByText('Restaurants could not be loaded.')).toBeNull();
+    });
+
     it('displays the restaurants', () => {
       expect(screen.queryByText('Sushi Place')).not.toBeNull();
       expect(screen.queryByText('Pizza Place')).not.toBeNull();
