@@ -48,6 +48,10 @@ describe('NewRestaurantForm', () => {
     it('does not display a validation error', () => {
       expect(screen.queryByText(requiredError)).toBeNull();
     });
+
+    it('does not display a server error', () => {
+      expect(screen.queryByText(serverError)).toBeNull();
+    });
   });
 
   describe('when empty', () => {
