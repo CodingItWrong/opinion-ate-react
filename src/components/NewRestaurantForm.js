@@ -31,12 +31,17 @@ export const NewRestaurantForm = ({createRestaurant}) => {
   return (
     <form onSubmit={handleSubmit}>
       {serverError && (
-        <Alert severity="error">
+        <Alert severity="error" data-test="server-error">
           The restaurant could not be saved. Please try again.
         </Alert>
       )}
-      {validationError && <Alert severity="error">Name is required</Alert>}
+      {validationError && (
+        <Alert severity="error" data-test="validation-error">
+          Name is required
+        </Alert>
+      )}
       <TextField
+        data-test="name-field"
         value={name}
         onChange={e => setName(e.target.value)}
         placeholder="Add Restaurant"
