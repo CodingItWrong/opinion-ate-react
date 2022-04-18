@@ -5,6 +5,33 @@ import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import {createRestaurant} from '../store/restaurants/actions';
 
+export function handleCreate({state, updateState, createRestaurant}) {
+  if (!state.name) {
+    updateState({
+      validationError: true,
+      serverError: false,
+    });
+    return;
+  }
+
+  updateState({
+    validationError: false,
+    serverError: false,
+  });
+
+  createRestaurant(state.name)
+    .then(() => {
+      // not persistent state; not following the state paradigm
+      // think through the simplest way to do this as a standalone function
+      updateState({name: ''});
+    })
+    .catch(() => {
+      updateState({
+        serverError: true,
+      });
+    });
+}
+
 export const NewRestaurantForm = ({createRestaurant}) => {
   const [state, setState] = useState({
     name: '',
