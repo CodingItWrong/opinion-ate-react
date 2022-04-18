@@ -32,6 +32,31 @@ export function handleCreate({state, updateState, createRestaurant}) {
     });
 }
 
+export function NewRestaurantFormDisplay({
+  name,
+  setName,
+  validationError,
+  serverError,
+}) {
+  return (
+    <>
+      {serverError && (
+        <Alert severity="error">
+          The restaurant could not be saved. Please try again.
+        </Alert>
+      )}
+      {validationError && <Alert severity="error">Name is required</Alert>}
+      <TextField
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="Add Restaurant"
+        fullWidth
+        variant="filled"
+      />
+    </>
+  );
+}
+
 export const NewRestaurantForm = ({createRestaurant}) => {
   const [state, setState] = useState({
     name: '',
