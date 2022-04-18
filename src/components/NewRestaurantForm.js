@@ -49,31 +49,14 @@ export const NewRestaurantForm = ({createRestaurant}) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (state.name) {
+    function updateState(changes) {
       setState(state => ({
         ...state,
-        validationError: false,
-        serverError: false,
-      }));
-      createRestaurant(state.name)
-        .then(() => {
-          setState(state => ({
-            ...state,
-            name: '',
-          }));
-        })
-        .catch(() => {
-          setState(state => ({
-            ...state,
-            serverError: true,
-          }));
-        });
-    } else {
-      setState(state => ({
-        ...state,
-        validationError: true,
+        ...changes,
       }));
     }
+
+    handleCreate({state, updateState, createRestaurant});
   };
 
   return (
