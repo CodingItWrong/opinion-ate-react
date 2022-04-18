@@ -6,39 +6,62 @@ import Alert from '@material-ui/lab/Alert';
 import {createRestaurant} from '../store/restaurants/actions';
 
 export const NewRestaurantForm = ({createRestaurant}) => {
-  const [name, setName] = useState('');
-  const [validationError, setValidationError] = useState(false);
-  const [serverError, setServerError] = useState(false);
+  const [state, setState] = useState({
+    name: '',
+    validationError: false,
+    serverError: false,
+  });
+
+  const handleChange = e => {
+    setState(state => ({
+      ...state,
+      name: e.target.value,
+    }));
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (name) {
-      setValidationError(false);
-      setServerError(false);
-      createRestaurant(name)
+    if (state.name) {
+      setState(state => ({
+        ...state,
+        validationError: false,
+        serverError: false,
+      }));
+      createRestaurant(state.name)
         .then(() => {
-          setName('');
+          setState(state => ({
+            ...state,
+            name: '',
+          }));
         })
         .catch(() => {
-          setServerError(true);
+          setState(state => ({
+            ...state,
+            serverError: true,
+          }));
         });
     } else {
-      setValidationError(true);
+      setState(state => ({
+        ...state,
+        validationError: true,
+      }));
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      {serverError && (
+      {state.serverError && (
         <Alert severity="error">
           The restaurant could not be saved. Please try again.
         </Alert>
       )}
-      {validationError && <Alert severity="error">Name is required</Alert>}
+      {state.validationError && (
+        <Alert severity="error">Name is required</Alert>
+      )}
       <TextField
-        value={name}
-        onChange={e => setName(e.target.value)}
+        value={state.name}
+        onChange={handleChange}
         placeholder="Add Restaurant"
         fullWidth
         variant="filled"
