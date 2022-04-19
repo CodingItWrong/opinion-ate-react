@@ -52,27 +52,20 @@ describe('NewRestaurantForm', () => {
     });
   });
 
-  describe('when the store action rejects', () => {
-    beforeEach(async () => {
-      createRestaurant.mockRejectedValue();
+  it('displays an error when the store action rejects', async () => {
+    createRestaurant.mockRejectedValue();
 
-      await userEvent.type(
-        screen.getByPlaceholderText('Add Restaurant'),
-        restaurantName,
-      );
-      userEvent.click(screen.getByTestId('new-restaurant-submit-button'));
+    await userEvent.type(
+      screen.getByPlaceholderText('Add Restaurant'),
+      restaurantName,
+    );
+    userEvent.click(screen.getByTestId('new-restaurant-submit-button'));
 
-      return act(flushPromises);
-    });
+    await screen.findByText(serverError);
 
-    it('displays a server error', () => {
-      expect(screen.queryByText(serverError)).not.toBeNull();
-    });
-
-    it('does not clear the name', () => {
-      expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(
-        restaurantName,
-      );
-    });
+    // does not clear the name
+    expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(
+      restaurantName,
+    );
   });
 });
