@@ -41,8 +41,6 @@ describe('NewRestaurantForm', () => {
       createRestaurant.mockResolvedValue();
 
       userEvent.click(screen.getByTestId('new-restaurant-submit-button'));
-
-      return act(flushPromises);
     });
 
     it('displays a validation error', () => {
