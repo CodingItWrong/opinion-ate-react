@@ -15,16 +15,6 @@ describe('NewRestaurantForm', () => {
     render(<NewRestaurantForm createRestaurant={createRestaurant} />);
   });
 
-  describe('initially', () => {
-    it('does not display a validation error', () => {
-      expect(screen.queryByText(requiredError)).toBeNull();
-    });
-
-    it('does not display a server error', () => {
-      expect(screen.queryByText(serverError)).toBeNull();
-    });
-  });
-
   describe('when filled in', () => {
     beforeEach(async () => {
       createRestaurant.mockResolvedValue();
@@ -44,14 +34,6 @@ describe('NewRestaurantForm', () => {
     it('clears the name', () => {
       expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual('');
     });
-
-    it('does not display a validation error', () => {
-      expect(screen.queryByText(requiredError)).toBeNull();
-    });
-
-    it('does not display a server error', () => {
-      expect(screen.queryByText(serverError)).toBeNull();
-    });
   });
 
   describe('when empty', () => {
@@ -69,27 +51,6 @@ describe('NewRestaurantForm', () => {
 
     it('does not call createRestaurant', () => {
       expect(createRestaurant).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('when correcting a validation error', () => {
-    beforeEach(async () => {
-      createRestaurant.mockResolvedValue();
-
-      userEvent.click(screen.getByTestId('new-restaurant-submit-button'));
-      await act(flushPromises);
-
-      await userEvent.type(
-        screen.getByPlaceholderText('Add Restaurant'),
-        restaurantName,
-      );
-      userEvent.click(screen.getByTestId('new-restaurant-submit-button'));
-
-      return act(flushPromises);
-    });
-
-    it('clears the validation error', () => {
-      expect(screen.queryByText(requiredError)).toBeNull();
     });
   });
 
@@ -114,26 +75,6 @@ describe('NewRestaurantForm', () => {
       expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(
         restaurantName,
       );
-    });
-  });
-
-  describe('when retrying after a server error', () => {
-    beforeEach(async () => {
-      createRestaurant.mockRejectedValueOnce().mockResolvedValueOnce();
-
-      await userEvent.type(
-        screen.getByPlaceholderText('Add Restaurant'),
-        restaurantName,
-      );
-      userEvent.click(screen.getByTestId('new-restaurant-submit-button'));
-      await act(flushPromises);
-
-      userEvent.click(screen.getByTestId('new-restaurant-submit-button'));
-      return act(flushPromises);
-    });
-
-    it('clears the server error', () => {
-      expect(screen.queryByText(serverError)).toBeNull();
     });
   });
 });
