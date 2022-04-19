@@ -78,16 +78,14 @@ export const NewRestaurantForm = ({createRestaurant}) => {
     serverError: false,
   });
 
-  const handleChange = e => {
+  const setName = newName => {
     setState(state => ({
       ...state,
-      name: e.target.value,
+      name: newName,
     }));
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-
+  const handleSubmit = () => {
     function updateState(changes) {
       setState(state => ({
         ...state,
@@ -99,31 +97,13 @@ export const NewRestaurantForm = ({createRestaurant}) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {state.serverError && (
-        <Alert severity="error">
-          The restaurant could not be saved. Please try again.
-        </Alert>
-      )}
-      {state.validationError && (
-        <Alert severity="error">Name is required</Alert>
-      )}
-      <TextField
-        value={state.name}
-        onChange={handleChange}
-        placeholder="Add Restaurant"
-        fullWidth
-        variant="filled"
-      />
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        data-testid="new-restaurant-submit-button"
-      >
-        Add
-      </Button>
-    </form>
+    <NewRestaurantFormDisplay
+      name={state.name}
+      setName={setName}
+      validationError={state.validationError}
+      serverError={state.serverError}
+      onSubmit={handleSubmit}
+    />
   );
 };
 
