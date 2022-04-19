@@ -37,9 +37,15 @@ export function NewRestaurantFormDisplay({
   setName,
   validationError,
   serverError,
+  onSubmit,
 }) {
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSubmit();
+  }
+
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       {serverError && (
         <Alert severity="error">
           The restaurant could not be saved. Please try again.
@@ -53,7 +59,15 @@ export function NewRestaurantFormDisplay({
         fullWidth
         variant="filled"
       />
-    </>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        data-testid="new-restaurant-submit-button"
+      >
+        Add
+      </Button>
+    </form>
   );
 }
 

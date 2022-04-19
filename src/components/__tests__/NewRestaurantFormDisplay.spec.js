@@ -51,4 +51,16 @@ describe('NewRestaurantFormDisplay', () => {
 
     expect(setName).toHaveBeenCalledWith(restaurantName);
   });
+
+  it('calls the onSubmit prop when clicking add', () => {
+    const handleSubmit = jest.fn().mockName('handleSubmit');
+    render(
+      <NewRestaurantFormDisplay
+        name={restaurantName}
+        onSubmit={handleSubmit}
+      />,
+    );
+    fireEvent.click(screen.getByTestId('new-restaurant-submit-button'));
+    expect(handleSubmit).toHaveBeenCalledWith();
+  });
 });
