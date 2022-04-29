@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux';
 
-const records = () => [];
+function records() {
+  return [];
+}
 
 export default combineReducers({
   records,
