@@ -14,6 +14,13 @@ describe('NewRestaurantForm', () => {
     render(<NewRestaurantForm createRestaurant={createRestaurant} />);
   }
 
+  describe('initially', () => {
+    it('does not display a validation error', () => {
+      renderComponent();
+      expect(screen.queryByText(requiredError)).not.toBeInTheDocument();
+    });
+  });
+
   describe('when filled in', () => {
     async function fillInForm() {
       renderComponent();
