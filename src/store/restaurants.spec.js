@@ -35,7 +35,7 @@ describe('restaurants', () => {
           loadRestaurants: () => new Promise(() => {}),
         };
 
-        const initialState = {};
+        const initialState = {loadError: true};
 
         store = createStore(
           restaurantsReducer,
@@ -48,6 +48,10 @@ describe('restaurants', () => {
 
       it('sets a loading flag', () => {
         expect(store.getState().loading).toEqual(true);
+      });
+
+      it('clears the error flag', () => {
+        expect(store.getState().loadError).toEqual(false);
       });
     });
 
