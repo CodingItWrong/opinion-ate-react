@@ -14,7 +14,9 @@ export function NewRestaurantForm({createRestaurant}) {
 
     if (name) {
       setValidationError(false);
-      await createRestaurant(name);
+      try {
+        await createRestaurant(name);
+      } catch {}
     } else {
       setValidationError(true);
     }
@@ -24,6 +26,9 @@ export function NewRestaurantForm({createRestaurant}) {
 
   return (
     <form onSubmit={handleSubmit}>
+      <Alert severity="error">
+        The restaurant could not be saved. Please try again.
+      </Alert>
       {validationError && <Alert severity="error">Name is required</Alert>}
       <TextField
         value={name}
