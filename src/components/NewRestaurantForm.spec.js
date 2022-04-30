@@ -36,4 +36,20 @@ describe('NewRestaurantForm', () => {
       expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual('');
     });
   });
+
+  describe('when empty', () => {
+    async function submitEmptyForm() {
+      renderComponent();
+      createRestaurant.mockResolvedValue();
+
+      userEvent.click(screen.getByText('Add'));
+
+      return act(flushPromises);
+    }
+
+    it('displays a validation error', async () => {
+      await submitEmptyForm();
+      expect(screen.getByText('Name is required')).toBeInTheDocument();
+    });
+  });
 });
