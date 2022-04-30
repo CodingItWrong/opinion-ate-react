@@ -14,6 +14,8 @@ export function NewRestaurantForm({createRestaurant}) {
 
     if (!name) {
       setValidationError(true);
+    } else {
+      setValidationError(false);
     }
 
     await createRestaurant(name);
