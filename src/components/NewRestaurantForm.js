@@ -7,9 +7,10 @@ import {createRestaurant} from '../store/restaurants/actions';
 export function NewRestaurantForm({createRestaurant}) {
   const [name, setName] = useState('');
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    createRestaurant(name);
+    await createRestaurant(name);
+    setName('');
   }
 
   return (
