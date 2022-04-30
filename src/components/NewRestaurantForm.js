@@ -15,6 +15,7 @@ export function NewRestaurantForm({createRestaurant}) {
 
     if (name) {
       setValidationError(false);
+      setServerError(false);
       try {
         await createRestaurant(name);
       } catch {
