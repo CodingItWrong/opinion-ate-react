@@ -23,13 +23,13 @@ export default function RestaurantScreen() {
     }
   }, []);
 
-  const createRestaurant = useCallback(async name => {
-    const newRestaurant = await api.createRestaurant(name);
-    setRestaurants(existingRestaurants => [
-      ...existingRestaurants,
-      newRestaurant,
-    ]);
-  }, []);
+  const createRestaurant = useCallback(
+    async name => {
+      const newRestaurant = await api.createRestaurant(name);
+      setRestaurants([...restaurants, newRestaurant]);
+    },
+    [restaurants],
+  );
 
   return (
     <Card>
