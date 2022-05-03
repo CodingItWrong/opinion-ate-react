@@ -6,21 +6,31 @@ import RestaurantList from './RestaurantList';
 import NewRestaurantForm from './NewRestaurantForm';
 import api from '../api';
 
+export async function loadRestaurantsPure({
+  api,
+  setRestaurants,
+  setLoading,
+  setLoadError,
+}) {
+  setLoadError(false);
+  setLoading(true);
+  try {
+    const newRestaurants = await api.loadRestaurants();
+    setRestaurants(newRestaurants);
+  } catch {
+    setLoadError(true);
+  } finally {
+    setLoading(false);
+  }
+}
+
 export default function RestaurantScreen() {
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadError, setLoadError] = useState(false);
 
-  const loadRestaurants = useCallback(async () => {
-    setLoadError(false);
-    setLoading(true);
-    try {
-      const newRestaurants = await api.loadRestaurants();
-      setRestaurants(newRestaurants);
-      setLoading(false);
-    } catch {
-      setLoadError(true);
-    }
+  const loadRestaurants = useCallback(() => {
+    return loadRestaurantsPure({api, setRestaurants, setLoading, setLoadError});
   }, []);
 
   const createRestaurant = useCallback(
