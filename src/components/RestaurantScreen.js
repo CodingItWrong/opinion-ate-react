@@ -24,6 +24,16 @@ export async function loadRestaurantsPure({
   }
 }
 
+export async function createRestaurantPure({
+  api,
+  name,
+  restaurants,
+  setRestaurants,
+}) {
+  const newRestaurant = await api.createRestaurant(name);
+  setRestaurants([...restaurants, newRestaurant]);
+}
+
 export default function RestaurantScreen() {
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -35,8 +45,12 @@ export default function RestaurantScreen() {
 
   const createRestaurant = useCallback(
     async name => {
-      const newRestaurant = await api.createRestaurant(name);
-      setRestaurants([...restaurants, newRestaurant]);
+      return createRestaurantPure({
+        api,
+        name,
+        restaurants,
+        setRestaurants,
+      });
     },
     [restaurants],
   );
