@@ -1,6 +1,8 @@
-import {loadRestaurantsPure} from './RestaurantScreen';
+import {loadRestaurantsPure, createRestaurantPure} from './RestaurantScreen';
 
 describe('RestaurantScreen', () => {
+  const doesNotResolve = () => new Promise(() => {});
+
   describe('loadRestaurantsPure', () => {
     let api;
     let setRestaurants;
@@ -22,7 +24,6 @@ describe('RestaurantScreen', () => {
 
     describe('while loading', () => {
       beforeEach(() => {
-        const doesNotResolve = new Promise(() => {});
         api.loadRestaurants.mockImplementation(doesNotResolve);
         call();
       });
@@ -68,6 +69,60 @@ describe('RestaurantScreen', () => {
 
       it('clears the loading flag', () => {
         expect(setLoading).toHaveBeenCalledWith(false);
+      });
+    });
+  });
+
+  describe('createRestaurantPure', () => {
+    const newRestaurantName = 'Sushi Place';
+    const existingRestaurant = {id: 1, name: 'Pizza Place'};
+    const responseRestaurant = {id: 2, name: newRestaurantName};
+
+    let api;
+    let setRestaurants;
+
+    beforeEach(() => {
+      setRestaurants = jest.fn().mockName('setRestaurants');
+      api = {
+        createRestaurant: jest.fn().mockName('api.createRestaurant'),
+      };
+    });
+
+    function call() {
+      return createRestaurantPure({
+        api,
+        name: newRestaurantName,
+        restaurants: [existingRestaurant],
+        setRestaurants,
+      });
+    }
+
+    it('saves the restaurant to the server', () => {
+      api.createRestaurant.mockImplementation(doesNotResolve);
+      call();
+
+      expect(api.createRestaurant).toHaveBeenCalledWith(newRestaurantName);
+    });
+
+    describe('when save succeeds', () => {
+      beforeEach(() => {
+        api.createRestaurant.mockResolvedValue(responseRestaurant);
+        call();
+      });
+
+      it('adds the returned restaurant to the list', () => {
+        expect(setRestaurants).toHaveBeenCalledWith([
+          existingRestaurant,
+          responseRestaurant,
+        ]);
+      });
+    });
+
+    describe('when save fails', () => {
+      it('rejects', () => {
+        api.createRestaurant.mockRejectedValue();
+        const promise = call();
+        return expect(promise).rejects.toBeUndefined();
       });
     });
   });
