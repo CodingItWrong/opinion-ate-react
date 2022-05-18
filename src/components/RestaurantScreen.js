@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import RestaurantList from './RestaurantList';
 import NewRestaurantForm from './NewRestaurantForm';
 import api from '../api';
-import {loadRestaurants} from '../actions';
+import {loadRestaurants, createRestaurant} from '../actions';
 
 export default function RestaurantScreen() {
   const [restaurants, setRestaurants] = useState([]);
@@ -17,11 +17,14 @@ export default function RestaurantScreen() {
     [],
   );
 
+  const createRestaurantCallback = name =>
+    createRestaurant({api, name, restaurants, setRestaurants});
+
   return (
     <Card>
       <CardContent>
         <Typography variant="h5">Restaurants</Typography>
-        <NewRestaurantForm />
+        <NewRestaurantForm createRestaurant={createRestaurantCallback} />
         <RestaurantList
           loadRestaurants={loadRestaurantsCallback}
           restaurants={restaurants}

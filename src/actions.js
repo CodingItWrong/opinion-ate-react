@@ -15,3 +15,13 @@ export async function loadRestaurants({
     setLoading(false);
   }
 }
+
+export async function createRestaurant({
+  name,
+  api,
+  restaurants,
+  setRestaurants,
+}) {
+  const record = await api.createRestaurant(name);
+  setRestaurants([...restaurants, record]);
+}
