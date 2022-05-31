@@ -149,7 +149,7 @@ describe('restaurants', () => {
     describe('when save succeeds', () => {
       beforeEach(() => {
         api.createRestaurant.mockResolvedValue(responseRestaurant);
-        store.dispatch(createRestaurant(newRestaurantName));
+        return store.dispatch(createRestaurant(newRestaurantName));
       });
 
       it('stores the returned restaurant in the store', () => {
