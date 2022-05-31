@@ -64,7 +64,6 @@ describe('NewRestaurantForm', () => {
   describe('when empty', () => {
     async function submitEmptyForm() {
       renderComponent();
-      createRestaurant.mockResolvedValue();
 
       userEvent.click(screen.getByText('Add'));
 
