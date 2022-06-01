@@ -3,20 +3,12 @@ describe('Creating a Restaurant', () => {
     const restaurantId = 27;
     const restaurantName = 'Sushi Place';
 
-    cy.intercept(
-      'GET',
-      'https://outside-in-dev-api.herokuapp.com/*/restaurants',
-      [],
-    );
+    cy.intercept('GET', 'https://api.outsidein.dev/*/restaurants', []);
 
-    cy.intercept(
-      'POST',
-      'https://outside-in-dev-api.herokuapp.com/*/restaurants',
-      {
-        id: restaurantId,
-        name: restaurantName,
-      },
-    ).as('addRestaurant');
+    cy.intercept('POST', 'https://api.outsidein.dev/*/restaurants', {
+      id: restaurantId,
+      name: restaurantName,
+    }).as('addRestaurant');
 
     cy.visit('/');
 
