@@ -29,7 +29,6 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest",
       "prettier"
     ],
     "plugins": [
@@ -41,7 +40,13 @@
     },
     "rules": {
       "prettier/prettier": "warn"
-    }
+    },
+    "overrides": [
+      {
+        "files": ["src/**/*.spec.js"],
+        "extends": ["react-app/jest"]
+      }
+    ]
   },
   "prettier": {
     "arrowParens": "avoid",
