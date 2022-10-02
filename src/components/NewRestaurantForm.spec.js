@@ -35,7 +35,7 @@ describe('NewRestaurantForm', () => {
         screen.getByPlaceholderText('Add Restaurant'),
         restaurantName,
       );
-      userEvent.click(screen.getByText('Add'));
+      await userEvent.click(screen.getByText('Add'));
 
       return act(flushPromises);
     }
@@ -65,7 +65,7 @@ describe('NewRestaurantForm', () => {
     async function submitEmptyForm() {
       renderComponent();
 
-      userEvent.click(screen.getByText('Add'));
+      await userEvent.click(screen.getByText('Add'));
 
       return act(flushPromises);
     }
@@ -92,7 +92,7 @@ describe('NewRestaurantForm', () => {
         screen.getByPlaceholderText('Add Restaurant'),
         restaurantName,
       );
-      userEvent.click(screen.getByText('Add'));
+      await userEvent.click(screen.getByText('Add'));
 
       return act(flushPromises);
     }
@@ -112,7 +112,7 @@ describe('NewRestaurantForm', () => {
         screen.getByPlaceholderText('Add Restaurant'),
         restaurantName,
       );
-      userEvent.click(screen.getByText('Add'));
+      await userEvent.click(screen.getByText('Add'));
 
       return act(flushPromises);
     }
@@ -139,10 +139,10 @@ describe('NewRestaurantForm', () => {
         screen.getByPlaceholderText('Add Restaurant'),
         restaurantName,
       );
-      userEvent.click(screen.getByText('Add'));
+      await userEvent.click(screen.getByText('Add'));
       await act(flushPromises);
 
-      userEvent.click(screen.getByText('Add'));
+      await userEvent.click(screen.getByText('Add'));
 
       return act(flushPromises);
     }
