@@ -10,8 +10,13 @@ function records(state = [], action) {
   }
 }
 
-function loading() {
-  return true;
+function loading(state = true, action) {
+  switch (action.type) {
+    case STORE_RESTAURANTS:
+      return false;
+    default:
+      return state;
+  }
 }
 
 export default combineReducers({
