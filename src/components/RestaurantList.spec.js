@@ -8,16 +8,21 @@ describe('RestaurantList', () => {
   ];
   let loadRestaurants;
 
-  function renderComponent() {
-    loadRestaurants = jest.fn().mockName('loadRestaurants');
+  function renderComponent(propOverrides = {}) {
+    const props = {
+      loadRestaurants: jest.fn().mockName('loadRestaurants'),
+      restaurants,
+      ...propOverrides,
+    };
+    loadRestaurants = props.loadRestaurants;
 
-    render(
-      <RestaurantList
-        loadRestaurants={loadRestaurants}
-        restaurants={restaurants}
-      />,
-    );
+    render(<RestaurantList {...props} />);
   }
+
+  it('displays the loading indicator while loading', () => {
+    renderComponent({loading: true});
+    expect(screen.getByRole('progressbar')).toBeInTheDocument();
+  });
 
   it('loads restaurants on first render', () => {
     renderComponent();
