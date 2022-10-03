@@ -24,6 +24,11 @@ describe('RestaurantList', () => {
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
   });
 
+  it('does not display the loading indicator while not loading', () => {
+    renderComponent({loading: false});
+    expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+  });
+
   it('loads restaurants on first render', () => {
     renderComponent();
     expect(loadRestaurants).toHaveBeenCalled();
