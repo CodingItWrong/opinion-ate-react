@@ -42,4 +42,13 @@ describe('RestaurantList', () => {
       expect(screen.getByText('Pizza Place')).toBeInTheDocument();
     });
   });
+
+  describe('when loading fails', () => {
+    it('displays the error message', () => {
+      renderComponent({loadError: true});
+      expect(
+        screen.getByText('Restaurants could not be loaded.'),
+      ).toBeInTheDocument();
+    });
+  });
 });
