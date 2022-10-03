@@ -36,6 +36,13 @@ describe('RestaurantList', () => {
       expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
     });
 
+    it('does not display the error message', () => {
+      renderComponent();
+      expect(
+        screen.queryByText('Restaurants could not be loaded.'),
+      ).not.toBeInTheDocument();
+    });
+
     it('displays the restaurants', () => {
       renderComponent();
       expect(screen.getByText('Sushi Place')).toBeInTheDocument();
