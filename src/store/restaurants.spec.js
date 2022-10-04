@@ -121,6 +121,8 @@ describe('restaurants', () => {
 
   describe('createRestaurant action', () => {
     const newRestaurantName = 'Sushi Place';
+    const existingRestaurant = {id: 1, name: 'Pizza Place'};
+    const responseRestaurant = {id: 2, name: newRestaurantName};
 
     let api;
     let store;
@@ -130,7 +132,7 @@ describe('restaurants', () => {
         createRestaurant: jest.fn().mockName('createRestaurant'),
       };
 
-      const initialState = {};
+      const initialState = {records: [existingRestaurant]};
 
       store = createStore(
         restaurantsReducer,
@@ -142,6 +144,20 @@ describe('restaurants', () => {
     it('saves the restaurant to the server', () => {
       store.dispatch(createRestaurant(newRestaurantName));
       expect(api.createRestaurant).toHaveBeenCalledWith(newRestaurantName);
+    });
+
+    describe('when save succeeds', () => {
+      beforeEach(() => {
+        api.createRestaurant.mockResolvedValue(responseRestaurant);
+        return store.dispatch(createRestaurant(newRestaurantName));
+      });
+
+      it('stores the returned restaurant in the store', () => {
+        expect(store.getState().records).toEqual([
+          existingRestaurant,
+          responseRestaurant,
+        ]);
+      });
     });
   });
 });
