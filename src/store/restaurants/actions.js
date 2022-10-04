@@ -12,7 +12,9 @@ export const loadRestaurants = () => async (dispatch, getState, api) => {
   }
 };
 
-export const createRestaurant = () => () => {};
+export const createRestaurant = name => async (dispatch, getState, api) => {
+  await api.createRestaurant(name);
+};
 
 const startLoading = () => ({type: START_LOADING});
 
