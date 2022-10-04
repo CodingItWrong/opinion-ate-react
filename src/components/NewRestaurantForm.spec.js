@@ -113,5 +113,32 @@ describe('NewRestaurantForm', () => {
       await fillInForm();
       expect(screen.getByText(serverError)).toBeInTheDocument();
     });
+
+    it('does not clear the name', async () => {
+      await fillInForm();
+      expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(
+        restaurantName,
+      );
+    });
+  });
+
+  describe('when retrying after the store rejects', () => {
+    async function retrySubmittingForm() {
+      renderComponent();
+      createRestaurant.mockRejectedValueOnce().mockResolvedValueOnce();
+
+      await user.type(
+        screen.getByPlaceholderText('Add Restaurant'),
+        restaurantName,
+      );
+      await user.click(screen.getByText('Add'));
+
+      await user.click(screen.getByText('Add'));
+    }
+
+    it('clears the server error', async () => {
+      await retrySubmittingForm();
+      expect(screen.queryByText(serverError)).not.toBeInTheDocument();
+    });
   });
 });
