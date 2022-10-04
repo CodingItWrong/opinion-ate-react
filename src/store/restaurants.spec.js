@@ -28,22 +28,30 @@ describe('restaurants', () => {
     });
 
     describe('while loading', () => {
-      it('sets a loading flag', () => {
+      let store;
+
+      beforeEach(() => {
         const api = {
           loadRestaurants: () => new Promise(() => {}),
         };
 
-        const initialState = {};
+        const initialState = {loadError: true};
 
-        const store = createStore(
+        store = createStore(
           restaurantsReducer,
           initialState,
           applyMiddleware(thunk.withExtraArgument(api)),
         );
 
         store.dispatch(loadRestaurants());
+      });
 
+      it('sets a loading flag', () => {
         expect(store.getState().loading).toEqual(true);
+      });
+
+      it('clears the error flag', () => {
+        expect(store.getState().loadError).toEqual(false);
       });
     });
 
