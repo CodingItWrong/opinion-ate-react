@@ -9,6 +9,10 @@ const api = {
     const response = await client.get('/restaurants');
     return response.data;
   },
+  async createRestaurant(name) {
+    const response = await client.post('/restaurants', {name});
+    return response.data;
+  },
 };
 
 export default api;
