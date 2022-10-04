@@ -5,6 +5,7 @@ import {NewRestaurantForm} from './NewRestaurantForm';
 describe('NewRestaurantForm', () => {
   const restaurantName = 'Sushi Place';
   const requiredError = 'Name is required';
+  const serverError = 'The restaurant could not be saved. Please try again.';
 
   let user;
   let createRestaurant;
@@ -83,6 +84,24 @@ describe('NewRestaurantForm', () => {
     it('clears the validation error', async () => {
       await fixValidationError();
       expect(screen.queryByText(requiredError)).not.toBeInTheDocument();
+    });
+  });
+
+  describe('when the store action rejects', () => {
+    async function fillInForm() {
+      renderComponent();
+      createRestaurant.mockRejectedValue();
+
+      await user.type(
+        screen.getByPlaceholderText('Add Restaurant'),
+        restaurantName,
+      );
+      await user.click(screen.getByText('Add'));
+    }
+
+    it('displays a server error', async () => {
+      await fillInForm();
+      expect(screen.getByText(serverError)).toBeInTheDocument();
     });
   });
 });
