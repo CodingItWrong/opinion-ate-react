@@ -52,6 +52,11 @@ describe('NewRestaurantForm', () => {
       await fillInForm();
       expect(screen.queryByText(requiredError)).not.toBeInTheDocument();
     });
+
+    it('does not display a server error', async () => {
+      await fillInForm();
+      expect(screen.queryByText(serverError)).not.toBeInTheDocument();
+    });
   });
 
   describe('when empty', () => {
