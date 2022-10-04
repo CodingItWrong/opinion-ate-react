@@ -12,6 +12,8 @@ export const loadRestaurants = () => async (dispatch, getState, api) => {
   }
 };
 
+export const createRestaurant = () => () => {};
+
 const startLoading = () => ({type: START_LOADING});
 
 const storeRestaurants = records => ({
