@@ -7,16 +7,18 @@ import {createRestaurant} from '../store/restaurants/actions';
 
 export function NewRestaurantForm({createRestaurant}) {
   const [name, setName] = useState('');
+  const [validationError, setValidationError] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setValidationError(true);
     await createRestaurant(name);
     setName('');
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <Alert severity="error">Name is required</Alert>
+      {validationError && <Alert severity="error">Name is required</Alert>}
       <TextField
         value={name}
         onChange={e => setName(e.target.value)}
