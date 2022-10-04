@@ -17,11 +17,11 @@ describe('NewRestaurantForm', () => {
   describe('when filled in', () => {
     async function fillInForm() {
       renderComponent();
-      await userEvent.type(
+      await user.type(
         screen.getByPlaceholderText('Add Restaurant'),
         restaurantName,
       );
-      await userEvent.click(screen.getByText('Add'));
+      await user.click(screen.getByText('Add'));
     }
 
     it('calls createRestaurant with the name', async () => {
